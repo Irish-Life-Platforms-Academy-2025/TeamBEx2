@@ -1,5 +1,5 @@
 terraform {
- 
+
   backend "azurerm" {
     resource_group_name  = "teamb-stage-rg"
     storage_account_name = "teambterraformsa"
