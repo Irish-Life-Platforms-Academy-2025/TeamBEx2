@@ -10,7 +10,7 @@ variable "prefix" {
 
 variable "public_address_space" {
   description = "CIDR for public address space"
-  default = "10.1.0.0/24"
+  default = "10.1.0.0/16"
 }
 
 variable "resource_count" {
