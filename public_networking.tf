@@ -27,7 +27,7 @@ resource "azurerm_public_ip" "public_vm_pips" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   allocation_method   = "Static"
-  tags = var.tag
+  tags                = var.tag
 }
 
 resource "azurerm_network_interface" "public_nics" {
@@ -36,7 +36,7 @@ resource "azurerm_network_interface" "public_nics" {
   name                = "${var.prefix}-public-vm-nic-${count.index}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
-  tags = var.tag
+  tags                = var.tag
 
   ip_configuration {
     name                          = "public-vm-${count.index}"
