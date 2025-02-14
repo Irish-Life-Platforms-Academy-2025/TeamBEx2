@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "public_nsg" {
     source_port_range            = "*"
     source_address_prefix        = "*"
     destination_port_range       = "22"
-    destination_address_prefixes = ["*"]
+    destination_address_prefix   = "*"
   }
 }
 
