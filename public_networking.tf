@@ -61,8 +61,15 @@ resource "azurerm_network_security_group" "public_nsg" {
     protocol                     = "Tcp"
     access                       = "Allow"
     source_port_range            = "*"
-    source_address_prefix        = "Internet"
+    source_address_prefix        = "*"
     destination_port_range       = "22"
     destination_address_prefixes = ["*"]
   }
+}
+
+resource "azurerm_subnet_network_security_group_association" "pub_nsg_assoc" {
+  count = var.resource_count
+  
+  subnet_id = azurerm_subnet.public_subnets[count.index].id
+  network_security_group_id = azurerm_network_security_group.public_nsg[count.index].id
 }
