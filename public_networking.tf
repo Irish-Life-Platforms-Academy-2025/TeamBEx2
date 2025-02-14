@@ -63,6 +63,6 @@ resource "azurerm_network_security_group" "public_nsg" {
     source_port_range            = "*"
     source_address_prefix        = "Internet"
     destination_port_range       = "22"
-    destination_address_prefixes = [azurerm_network_interface.public_nics[count.index].private_ip_address]
+    destination_address_prefixes = ["*"]
   }
 }
