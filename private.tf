@@ -7,14 +7,14 @@ resource "azurerm_virtual_network" "privatevnet1" {
 }
 
 resource "azurerm_subnet" "privatesubnet0" {
-  name                = "${var.prefix}-privatesubnet0"
+  name                 = "${var.prefix}-privatesubnet0"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.0.0/24"]
 }
 
 resource "azurerm_subnet" "privatesubnet1" {
-  name                = "${var.prefix}-privatesubnet1"
+  name                 = "${var.prefix}-privatesubnet1"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -22,7 +22,7 @@ resource "azurerm_subnet" "privatesubnet1" {
 }
 
 resource "azurerm_subnet" "privatesubnet2" {
-  name                = "${var.prefix}-privatesubnet2"
+  name                 = "${var.prefix}-privatesubnet2"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.2.0/24"]
@@ -73,7 +73,7 @@ resource "azurerm_linux_virtual_machine" "privatevm0" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic0.id]
-  size                  = "Standard_DS1_v2"
+  size                  = var.vm_size
   tags                  = var.tag
 
   os_disk {
@@ -94,7 +94,6 @@ resource "azurerm_linux_virtual_machine" "privatevm0" {
   admin_password = var.vm_password
 
   disable_password_authentication = false
-
 }
 
 resource "azurerm_linux_virtual_machine" "privatevm1" {
@@ -102,7 +101,7 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic1.id]
-  size                  = "Standard_DS1_v2"
+  size                  = var.vm_size
   tags                  = var.tag
 
   os_disk {
@@ -123,16 +122,14 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   admin_password = var.vm_password
 
   disable_password_authentication = false
-
-
 }
 
-  resource "azurerm_linux_virtual_machine" "privatevm2" {
+resource "azurerm_linux_virtual_machine" "privatevm2" {
   name                  = "${var.prefix}-privatevm2"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic2.id]
-  size                  = "Standard_DS1_v2"
+  size                  = var.vm_size
   tags                  = var.tag
 
   os_disk {
@@ -153,6 +150,5 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   admin_password = var.vm_password
 
   disable_password_authentication = false
-
 }
 
