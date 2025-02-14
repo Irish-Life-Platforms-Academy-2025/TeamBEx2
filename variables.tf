@@ -5,7 +5,7 @@ variable "location" {
 
 variable "rg_name" {
   description = "Name of resource group"
-  type = string
+  type        = string
 }
 
 variable "prefix" {
@@ -36,7 +36,7 @@ variable "vm_username" {
 variable "vm_password" {
   description = "Password for VMs"
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "tag" {

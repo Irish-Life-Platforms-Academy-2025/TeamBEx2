@@ -52,17 +52,17 @@ resource "azurerm_network_security_group" "public_nsg" {
   name                = "${var.prefix}-public-vm-nsg-${count.index}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
-  tags = var.tag
+  tags                = var.tag
 
   security_rule {
-    name = "InternetSSHToSubnet${count.index}"
-    priority = 200
-    direction = "Inbound"
-    protocol = "Tcp"
-    access = "Allow"
-    source_port_range = "*"
-    source_address_prefix = "Internet"
-    destination_port_range = "22"
+    name                         = "InternetSSHToSubnet${count.index}"
+    priority                     = 200
+    direction                    = "Inbound"
+    protocol                     = "Tcp"
+    access                       = "Allow"
+    source_port_range            = "*"
+    source_address_prefix        = "Internet"
+    destination_port_range       = "22"
     destination_address_prefixes = [azurerm_network_interface.public_nics[count.index].private_ip_address]
   }
 }
