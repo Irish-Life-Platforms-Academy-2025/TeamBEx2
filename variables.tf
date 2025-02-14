@@ -18,6 +18,11 @@ variable "public_address_space" {
   type        = string
 }
 
+variable "private_address_space" {
+  description = "CIDR for private address space"
+  type        = string
+}
+
 variable "resource_count" {
   description = "Number of resources to create"
   type        = number

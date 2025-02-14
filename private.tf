@@ -10,7 +10,7 @@ resource "azurerm_subnet" "privatesubnet1" {
   name                = "${var.prefix}-privatesubnet1"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
-  address_prefixes     = ["10.0.1.0/24"] 
+  address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "privatevnet1-nsg" {
@@ -147,9 +147,9 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
-  }
+}
 
 resource "azurerm_linux_virtual_machine" "privatevm2" {
   name                  = "${var.prefix}-privatevm2"
@@ -176,10 +176,10 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
 
-  }
+}
 
   resource "azurerm_linux_virtual_machine" "privatevm3" {
   name                  = "${var.prefix}-privatevm3"
@@ -206,7 +206,7 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
-  }
+}
 
