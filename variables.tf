@@ -31,12 +31,13 @@ variable "vm_username" {
 variable "vm_password" {
   description = "Password for VMs"
   type        = string
+  sensitive = true
 }
 
 variable "tag" {
   description = "Tag to apply to all resources"
   type        = map(string)
   default = {
-    "DeployedBy" = "TeamB"
+    "DeployedBy" = "teamb"
   }
 }
