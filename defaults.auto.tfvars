@@ -1,4 +1,5 @@
 location = "uksouth"
+rg_name = "teamb-terraform-rg"
 resource_count = 3
 vm_size = "Standard_DS1_v2"
 prefix = "teamb"

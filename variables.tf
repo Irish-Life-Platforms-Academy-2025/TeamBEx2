@@ -3,6 +3,11 @@ variable "location" {
   type        = string
 }
 
+variable "rg_name" {
+  description = "Name of resource group"
+  type = string
+}
+
 variable "prefix" {
   description = "Prefix for resources"
   type        = string
