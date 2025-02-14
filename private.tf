@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "privatevnet1" {
-  name                = "privatevnet1"
+  name                = "${var.prefix}-privatevnet1"
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -7,14 +7,14 @@ resource "azurerm_virtual_network" "privatevnet1" {
 }
 
 resource "azurerm_subnet" "privatesubnet1" {
-  name                = "privatesubnet1"
+  name                = "${var.prefix}-privatesubnet1"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.1.0/24"] 
 }
 
 resource "azurerm_network_security_group" "privatevnet1-nsg" {
-  name                = "private-network-security-group1"
+  name                = "${var.prefix}-private-network-security-group1"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -32,7 +32,7 @@ resource "azurerm_network_security_group" "privatevnet1-nsg" {
 }
 
 resource "azurerm_subnet" "privatesubnet2" {
-  name                = "privatesubnet2"
+  name                = "${var.prefix}-privatesubnet2"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.2.0/24"]
@@ -40,7 +40,7 @@ resource "azurerm_subnet" "privatesubnet2" {
 }
 
 resource "azurerm_network_security_group" "privatevnet2-nsg" {
-  name                = "private-network-security-group2"
+  name                = "${var.prefix}-private-network-security-group2"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -58,7 +58,7 @@ resource "azurerm_network_security_group" "privatevnet2-nsg" {
 }
 
 resource "azurerm_subnet" "privatesubnet3" {
-  name                = "privatesubnet3"
+  name                = "${var.prefix}-privatesubnet3"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.3.0/24"]
@@ -66,7 +66,7 @@ resource "azurerm_subnet" "privatesubnet3" {
 }
 
 resource "azurerm_network_security_group" "privatevnet3-nsg" {
-  name                = "private-network-security-group3"
+  name                = "${var.prefix}-private-network-security-group3"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -84,7 +84,7 @@ resource "azurerm_network_security_group" "privatevnet3-nsg" {
 }
 
 resource "azurerm_network_interface" "privatenic1" {
-  name                = "privatenic1"
+  name                = "${var.prefix}-privatenic1"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = var.tag
@@ -97,7 +97,7 @@ resource "azurerm_network_interface" "privatenic1" {
 }
 
 resource "azurerm_network_interface" "privatenic2" {
-  name                = "privatenic2"
+  name                = "${var.prefix}-privatenic2"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = var.tag
@@ -110,7 +110,7 @@ resource "azurerm_network_interface" "privatenic2" {
 }
 
 resource "azurerm_network_interface" "privatenic3" {
-  name                = "privatenic3"
+  name                = "${var.prefix}-privatenic3"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = var.tag
@@ -123,7 +123,7 @@ resource "azurerm_network_interface" "privatenic3" {
 }
 
 resource "azurerm_linux_virtual_machine" "privatevm1" {
-  name                  = "privatevm1"
+  name                  = "${var.prefix}-privatevm1"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic1.id]
@@ -152,7 +152,7 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   }
 
 resource "azurerm_linux_virtual_machine" "privatevm2" {
-  name                  = "privatevm2"
+  name                  = "${var.prefix}-privatevm2"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic2.id]
@@ -182,7 +182,7 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
   }
 
   resource "azurerm_linux_virtual_machine" "privatevm3" {
-  name                  = "privatevm3"
+  name                  = "${var.prefix}-privatevm3"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.privatenic3.id]
