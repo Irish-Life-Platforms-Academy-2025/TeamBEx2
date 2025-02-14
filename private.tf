@@ -1,6 +1,6 @@
 resource "azurerm_virtual_network" "privatevnet1" {
   name                = "${var.prefix}-privatevnet1"
-  address_space       = ["10.0.0.0/16"]
+  address_space       = [var.private_address_space]
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = var.tag
