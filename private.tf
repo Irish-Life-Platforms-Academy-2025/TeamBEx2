@@ -13,11 +13,48 @@ resource "azurerm_subnet" "privatesubnet1" {
   address_prefixes     = ["10.0.1.0/24"] 
 }
 
+resource "azurerm_network_security_group" "privatevnet1-nsg" {
+  name                = "private-network-security-group1"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = azurerm_network_interface.public_nics[0].private_ip_address
+    destination_address_prefix = "*"
+  }
+}
+
 resource "azurerm_subnet" "privatesubnet2" {
   name                = "privatesubnet2"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.2.0/24"]
+
+}
+
+resource "azurerm_network_security_group" "privatevnet2-nsg" {
+  name                = "private-network-security-group2"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = azurerm_network_interface.public_nics[1].private_ip_address
+    destination_address_prefix = "*"
+  }
 }
 
 resource "azurerm_subnet" "privatesubnet3" {
@@ -26,6 +63,24 @@ resource "azurerm_subnet" "privatesubnet3" {
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.3.0/24"]
 
+}
+
+resource "azurerm_network_security_group" "privatevnet3-nsg" {
+  name                = "private-network-security-group3"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = azurerm_network_interface.public_nics[2].private_ip_address
+    destination_address_prefix = "*"
+  }
 }
 
 resource "azurerm_network_interface" "privatenic1" {
@@ -88,9 +143,9 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
     version   = "latest"
   }
 
-  computer_name  = "hostname"
-  admin_username = "adminuser"
-  admin_password = "Password1234!"
+  computer_name  = "hostname1"
+  admin_username = var.vm_username
+  admin_password = var.vm_password
 
   disable_password_authentication = false 
 
@@ -117,9 +172,9 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
     version   = "latest"
   }
 
-  computer_name  = "hostname"
-  admin_username = "adminuser"
-  admin_password = "Password1234!"
+  computer_name  = "hostname2"
+  admin_username = var.vm_username
+  admin_password = var.vm_password
 
   disable_password_authentication = false 
 
@@ -147,9 +202,9 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
     version   = "latest"
   }
 
-  computer_name  = "hostname"
-  admin_username = "adminuser"
-  admin_password = "Password1234!"
+  computer_name  = "hostname3"
+  admin_username = var.vm_username
+  admin_password = var.vm_password
 
   disable_password_authentication = false 
 
