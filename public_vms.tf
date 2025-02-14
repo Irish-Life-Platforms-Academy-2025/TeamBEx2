@@ -10,7 +10,7 @@ resource "azurerm_linux_virtual_machine" "public_vms" {
 
   admin_username                  = var.vm_username
   admin_password                  = var.vm_password
-  disable_password_authentication = true
+  disable_password_authentication = false
 
   os_disk {
     caching              = "ReadWrite"
