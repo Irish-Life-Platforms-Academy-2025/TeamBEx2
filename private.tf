@@ -7,10 +7,10 @@ resource "azurerm_virtual_network" "privatevnet1" {
 }
 
 resource "azurerm_subnet" "privatesubnet1" {
-  name                = "privatesubnet1"
+  name                 = "privatesubnet1"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
-  address_prefixes     = ["10.0.1.0/24"] 
+  address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "privatevnet1-nsg" {
@@ -32,7 +32,7 @@ resource "azurerm_network_security_group" "privatevnet1-nsg" {
 }
 
 resource "azurerm_subnet" "privatesubnet2" {
-  name                = "privatesubnet2"
+  name                 = "privatesubnet2"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.2.0/24"]
@@ -58,7 +58,7 @@ resource "azurerm_network_security_group" "privatevnet2-nsg" {
 }
 
 resource "azurerm_subnet" "privatesubnet3" {
-  name                = "privatesubnet3"
+  name                 = "privatesubnet3"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.privatevnet1.name
   address_prefixes     = ["10.0.3.0/24"]
@@ -147,9 +147,9 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
-  }
+}
 
 resource "azurerm_linux_virtual_machine" "privatevm2" {
   name                  = "privatevm2"
@@ -176,12 +176,12 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
 
-  }
+}
 
-  resource "azurerm_linux_virtual_machine" "privatevm3" {
+resource "azurerm_linux_virtual_machine" "privatevm3" {
   name                  = "privatevm3"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
@@ -206,7 +206,7 @@ resource "azurerm_linux_virtual_machine" "privatevm2" {
   admin_username = var.vm_username
   admin_password = var.vm_password
 
-  disable_password_authentication = false 
+  disable_password_authentication = false
 
-  }
+}
 
