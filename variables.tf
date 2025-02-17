@@ -8,24 +8,18 @@ variable "rg_name" {
   type        = string
 }
 
-variable "prefix" {
+variable "teamname" {
   description = "Prefix for resources"
   type        = string
 }
 
-variable "public_address_space" {
-  description = "CIDR for public address space"
+variable "environment" {
+  description = "Environment for resources"
   type        = string
 }
-
 variable "private_address_space" {
   description = "CIDR for private address space"
   type        = string
-}
-
-variable "resource_count" {
-  description = "Number of resources to create"
-  type        = number
 }
 
 variable "vm_size" {
@@ -42,12 +36,4 @@ variable "vm_password" {
   description = "Password for VMs"
   type        = string
   sensitive   = true
-}
-
-variable "tag" {
-  description = "Tag to apply to all resources"
-  type        = map(string)
-  default = {
-    "DeployedBy" = "teamb"
-  }
 }

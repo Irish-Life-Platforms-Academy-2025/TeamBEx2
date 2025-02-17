@@ -4,7 +4,7 @@ terraform {
     resource_group_name  = "teamb-stage-rg"
     storage_account_name = "teambterraformsa"
     container_name       = "states"
-    key                  = "teamb.tfstate"
+    key                  = "teambex2.tfstate"
   }
 
   required_providers {
