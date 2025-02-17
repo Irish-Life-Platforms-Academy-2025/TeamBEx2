@@ -1,5 +1,4 @@
 location              = "uksouth"
-rg_name               = "teambex2-terraform-rg"
 vm_size               = "Standard_DS1_v2"
 teamname              = "teamb"
 environment           = "dev"
