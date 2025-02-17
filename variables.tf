@@ -32,3 +32,8 @@ variable "vm_password" {
   type        = string
   sensitive   = true
 }
+
+variable "lb_sku_tier" {
+  description = "SKU Tier for Load Balancer"
+  type        = string
+}
