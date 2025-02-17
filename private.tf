@@ -21,6 +21,51 @@ resource "azurerm_subnet" "privatesubnet1" {
 
 }
 
+# resource "azurerm_public_ip" "vm0-public-ip" {
+#  name                = "${local.prefix}-vm0-public-ip"
+#  location            = var.location
+#  resource_group_name = azurerm_resource_group.rg.name
+#  allocation_method   = "Static"
+#  sku                 = "Standard"
+#}
+
+#resource "azurerm_public_ip" "vm1-public-ip" {
+#  name                = "${local.prefix}-vm1-public-ip"
+#  location            = var.location
+#  resource_group_name = azurerm_resource_group.rg.name
+#  allocation_method   = "Static"
+#  sku                 = "Standard"
+#}
+
+resource "azurerm_network_security_group" "privatesubnet-nsg" {
+  name                = "${local.prefix}-network-security-group"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  tags                = local.tags
+ security_rule {
+    name                       = "HTTP"
+    priority                   = 1000
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+}
+
+resource "azurerm_subnet_network_security_group_association" "subnet1_nsg" {
+  subnet_id                 = azurerm_subnet.privatesubnet0.id
+  network_security_group_id = azurerm_network_security_group.privatesubnet-nsg.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "subnet2_nsg" {
+  subnet_id                 = azurerm_subnet.privatesubnet1.id
+  network_security_group_id = azurerm_network_security_group.privatesubnet-nsg.id
+}
+
 resource "azurerm_network_interface" "privatenic0" {
   name                = "${local.prefix}-privatenic0"
   location            = var.location
@@ -31,6 +76,7 @@ resource "azurerm_network_interface" "privatenic0" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.privatesubnet0.id
     private_ip_address_allocation = "Dynamic"
+ #   public_ip_address_id          = azurerm_public_ip.vm0-public-ip.id
   }
 }
 
@@ -44,6 +90,7 @@ resource "azurerm_network_interface" "privatenic1" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.privatesubnet1.id
     private_ip_address_allocation = "Dynamic"
+  #  public_ip_address_id          = azurerm_public_ip.vm1-public-ip.id
   }
 }
 
@@ -74,6 +121,11 @@ resource "azurerm_linux_virtual_machine" "privatevm0" {
   admin_password = var.vm_password
 
   disable_password_authentication = false
+
+  # Pointing to the locals file for the inline sudo command to install Apache2
+  
+  custom_data = base64encode(local.custom_data)
+
 }
 
 resource "azurerm_linux_virtual_machine" "privatevm1" {
@@ -102,6 +154,11 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   admin_password = var.vm_password
 
   disable_password_authentication = false
+
+  # Pointing to the locals file for the inline sudo command to install Apache2
+  
+  custom_data = base64encode(local.custom_data)
+
 }
 
 
