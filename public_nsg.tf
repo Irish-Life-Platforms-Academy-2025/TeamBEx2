@@ -38,7 +38,7 @@ resource "azurerm_network_security_rule" "deny_outbound_vnet_rule" {
   source_port_range          = "*"
   source_address_prefix      = "*"
   destination_port_range     = "*"
-  destination_address_prefix = "10.0.0.0/16"
+  destination_address_prefix = var.private_address_space
 }
 
 resource "azurerm_network_security_rule" "allow_ssh_vnet_rule" {
