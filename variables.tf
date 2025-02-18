@@ -32,3 +32,16 @@ variable "vm_password" {
   type        = string
   sensitive   = true
 }
+
+variable "sql_username" {
+  description = "Username for SQL Server"
+  type        = string
+  sensitive   = true
+}
+
+variable "sql_password" {
+  description = "Password for SQL Server"
+  type        = string
+  sensitive   = true
+}
+
