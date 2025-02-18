@@ -42,7 +42,7 @@ resource "azurerm_network_security_group" "privatesubnet-nsg" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   tags                = local.tags
- security_rule {
+  security_rule {
     name                       = "HTTP"
     priority                   = 1000
     direction                  = "Inbound"
@@ -76,7 +76,7 @@ resource "azurerm_network_interface" "privatenic0" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.privatesubnet0.id
     private_ip_address_allocation = "Dynamic"
- #   public_ip_address_id          = azurerm_public_ip.vm0-public-ip.id
+    #   public_ip_address_id          = azurerm_public_ip.vm0-public-ip.id
   }
 }
 
@@ -90,7 +90,7 @@ resource "azurerm_network_interface" "privatenic1" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.privatesubnet1.id
     private_ip_address_allocation = "Dynamic"
-  #  public_ip_address_id          = azurerm_public_ip.vm1-public-ip.id
+    #  public_ip_address_id          = azurerm_public_ip.vm1-public-ip.id
   }
 }
 
@@ -123,7 +123,7 @@ resource "azurerm_linux_virtual_machine" "privatevm0" {
   disable_password_authentication = false
 
   # Pointing to the locals file for the inline sudo command to install Apache2
-  
+
   custom_data = base64encode(local.custom_data)
 
 }
@@ -156,7 +156,7 @@ resource "azurerm_linux_virtual_machine" "privatevm1" {
   disable_password_authentication = false
 
   # Pointing to the locals file for the inline sudo command to install Apache2
-  
+
   custom_data = base64encode(local.custom_data)
 
 }

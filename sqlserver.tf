@@ -8,15 +8,15 @@ resource "azurerm_postgresql_flexible_server" "sql_server" {
   administrator_password        = var.sql_password
   tags                          = local.tags
 
-  storage_mb = 32768
-  sku_name   = "GP_Standard_D2s_v3"
-  geo_redundant_backup_enabled  = true
-  backup_retention_days = 7
+  storage_mb                   = 32768
+  sku_name                     = "GP_Standard_D2s_v3"
+  geo_redundant_backup_enabled = true
+  backup_retention_days        = 7
 
   zone = "1"
 
   high_availability {
-    mode = "ZoneRedundant"
-    standby_availability_zone = 2   
+    mode                      = "ZoneRedundant"
+    standby_availability_zone = 2
   }
 }
