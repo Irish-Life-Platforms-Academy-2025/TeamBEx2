@@ -16,6 +16,7 @@ resource "azurerm_postgresql_flexible_server" "sql_server" {
   zone = "1"
 
   high_availability {
-    mode = "ZoneRedundant"    
+    mode = "ZoneRedundant"
+    standby_availability_zone = 2   
   }
 }
