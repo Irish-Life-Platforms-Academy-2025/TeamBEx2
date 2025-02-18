@@ -37,3 +37,16 @@ variable "lb_sku_tier" {
   description = "SKU Tier for Load Balancer"
   type        = string
 }
+
+variable "sql_username" {
+  description = "Username for SQL Server"
+  type        = string
+  sensitive   = true
+}
+
+variable "sql_password" {
+  description = "Password for SQL Server"
+  type        = string
+  sensitive   = true
+}
+
