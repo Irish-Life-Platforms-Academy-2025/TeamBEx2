@@ -9,7 +9,7 @@ resource "azurerm_postgresql_flexible_server" "sql_server" {
   tags                          = local.tags
 
   storage_mb = 32768
-  sku_name   = "B_Standard_B1ms"
+  sku_name   = "GP_Standard_D2s_v3"
   geo_redundant_backup_enabled  = true
   backup_retention_days = 7
 
