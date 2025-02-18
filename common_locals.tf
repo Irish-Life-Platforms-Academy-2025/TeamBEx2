@@ -3,7 +3,7 @@ locals {
     "Team"        = var.teamname
     "Environment" = var.environment
   }
-  prefix = "${var.teamname}-${var.environment}"
+  prefix      = "${var.teamname}-${var.environment}"
   custom_data = <<CUSTOM_DATA
   #cloud-config
   runcmd:
