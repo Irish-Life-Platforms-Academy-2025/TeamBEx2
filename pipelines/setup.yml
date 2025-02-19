@@ -30,3 +30,8 @@ jobs:
           workingDirectory: '$(System.DefaultWorkingDirectory)'
         continueOnError: false
 
+      - task: DownloadSecureFile@1
+        inputs:
+          secureFile: 'notpassword.tfvars'
+        continueOnError: false
+
