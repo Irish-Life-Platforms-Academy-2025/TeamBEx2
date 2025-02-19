@@ -3,11 +3,9 @@ jobs:
     displayName: "Run Plan"
     
     steps:
-      - task: TerraformCLI@2
+      - task: TerraformTaskV4@4
         inputs:
           command: 'plan'
-          allowTelemetryCollection: false
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          secureVarsFile: 'notpasswords.tfvars'
-          backendServiceArm: $(ServiceConnectionName)
+          environmentServiceNameAzureRM: $(ServiceConnectionName)
 

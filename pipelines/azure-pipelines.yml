@@ -7,10 +7,10 @@ trigger: none
 
 variables:
   ServiceConnectionName: 'TeamBDevopsSC'
-  bkstrgrg: 'TeamB-stage-rg'
-  bkstrg: 'teambterraformsa'
-  bkstr: 'states'
-  bkstrgkey: 'teambex2.tfstate'
+  beStrgRG: 'TeamB-stage-rg'
+  beStrg: 'teambterraformsa'
+  beStrgCon: 'states'
+  beStrgKey: 'teambex2.tfstate'
 
 pool:
   vmImage: ubuntu-latest

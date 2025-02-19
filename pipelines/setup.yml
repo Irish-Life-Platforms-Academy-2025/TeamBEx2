@@ -8,19 +8,22 @@ jobs:
         inputs:
           terraformVersion: 'latest'
       
-      - task: TerraformCLI@2
+      - task: TerraformTaskV4@4
         displayName: 'Run Init'
         inputs:
           command: 'init'
-          backendType: 'azurerm'
-          allowTelemetryCollection: false
+          provider: 'azurerm'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          backendServiceArm: $(ServiceConnectionName)
+          backendServiceArm: '$(ServiceConnectionName)'
+          backendAzureRmResourceGroupName: '$(beStrgRG)'
+          backendAzureRmStorageAccountName: '$(beStrg)'
+          backendAzureRmContainerName: '$(beStrgCon)'
+          backendAzureRmKey: 'beStrgKey'
 
-      - task: TerraformCLI@2
+      - task: TerraformTaskV4@4
         displayName: 'Run validate'
         inputs:
           command: 'validate'
-          allowTelemetryCollection: false
+          provider: 'azurerm'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
 
