@@ -7,11 +7,6 @@ variable "teamname" {
   description = "Prefix for resources"
   type        = string
 }
-
-variable "environment" {
-  description = "Environment for resources"
-  type        = string
-}
 variable "private_address_space" {
   description = "CIDR for private address space"
   type        = string
