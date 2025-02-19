@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  DEV_PLAN: 'Dev Plan'
+  DEV_APPLY: 'Dev Apply'
+
+jobs:
+- job: DevPlan
+  displayName: $(DEV_PLAN)
+  steps:
+  - script: |
+      echo "Running Dev Plan"
+      terraform workspace select dev
+      terraform plan -var-file=defaults.auto.tfvars
+    displayName: 'Run Dev Plan'
+
+- job: DevApply
+  displayName: $(DEV_APPLY)
+  dependsOn: DevPlan
+  steps:
+  - script: |
+      echo "Running Dev Apply"
+      terraform workspace select dev
+      terraform apply -var-file=defaults.auto.tfvars
+    displayName: 'Run Dev Apply'
