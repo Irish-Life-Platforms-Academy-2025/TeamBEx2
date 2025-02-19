@@ -8,4 +8,5 @@ jobs:
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
           environmentServiceNameAzureRM: $(ServiceConnectionName)
+        continueOnError: false
 

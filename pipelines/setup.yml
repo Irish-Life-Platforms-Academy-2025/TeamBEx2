@@ -7,6 +7,7 @@ jobs:
         displayName: 'Install Terraform'
         inputs:
           terraformVersion: 'latest'
+        continueOnError: false
       
       - task: TerraformTaskV4@4
         displayName: 'Run Init'
@@ -19,6 +20,7 @@ jobs:
           backendAzureRmStorageAccountName: '$(beStrg)'
           backendAzureRmContainerName: '$(beStrgCon)'
           backendAzureRmKey: 'beStrgKey'
+        continueOnError: false
 
       - task: TerraformTaskV4@4
         displayName: 'Run validate'
@@ -26,4 +28,5 @@ jobs:
           command: 'validate'
           provider: 'azurerm'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
+        continueOnError: false
 
