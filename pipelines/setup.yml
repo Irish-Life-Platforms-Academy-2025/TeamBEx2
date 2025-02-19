@@ -31,6 +31,7 @@ jobs:
         continueOnError: false
 
       - task: DownloadSecureFile@1
+        name: tfpasswords
         inputs:
           secureFile: 'notpassword.tfvars'
         continueOnError: false
