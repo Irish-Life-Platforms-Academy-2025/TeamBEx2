@@ -17,4 +17,9 @@ jobs:
       - task: TerraformInstaller@2
         inputs:
           terraformVersion: 'latest'
-
+      
+      - task: TerraformCLI@2
+        inputs:
+          command: 'init'
+          backendType: 'azurerm'
+          allowTelemetryCollection: true
