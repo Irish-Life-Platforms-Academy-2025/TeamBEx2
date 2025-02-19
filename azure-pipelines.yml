@@ -4,37 +4,26 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- none
 
+pool:
+  vmImage: ubuntu-latest
+  
 variables: # terraform variables
  ServiceConnectionName: 'anynameofsp'
  bk-rg-name: 'teamb-stage-rg'
  bk-str-account-name: 'teambterraformsa'
  bk-container-name: 'states'
  bk-key: 'teambex2.tfstate' # key is actually name of the file, determined here
- 
-pool:
-  vmImage: ubuntu-latest
-  
-stages:
 
-  - stage: validate_terraform
-    displayName: 'Validate Terraform'
-
-    jobs:
-    - template: Terraform/plan.yml
-      parameters:
-        env: dev
-
-  - stage: deploy_terraform
-    displayName: 'Deploy Terraform'
-    dependsOn:
-    - validate_terraform # makes sure validate_terraform stage runs first
-    condition: succeeded('validate_terraform') ## stage runs only if validate_terraform is successful
-
-    jobs:
-    - template: Terraform/deploy.yml
-      parameters:
-        env: dev
-    
-
+ stages:
+   - stage: tfvalidate
+     jobs:
+       - job: validate
+         continueOnError: false
+         steps:
+           - task: TerraformInstaller@2
+             displayName: tfinstall
+             inputs:
+               terraformVersion: 'latest'
+             
