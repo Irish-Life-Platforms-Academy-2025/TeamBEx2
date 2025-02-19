@@ -3,11 +3,13 @@ jobs:
     displayName: "Setup terraform"
     
     steps:
-      - task: TerraformInstaller@2
+      - task: TerraformInstaller@1
+        displayName: 'Install Terraform'
         inputs:
           terraformVersion: 'latest'
       
       - task: TerraformCLI@2
+        displayName: 'Run Init'
         inputs:
           command: 'init'
           backendType: 'azurerm'
@@ -16,6 +18,7 @@ jobs:
           backendServiceArm: $(ServiceConnectionName)
 
       - task: TerraformCLI@2
+        displayName: 'Run validate'
         inputs:
           command: 'validate'
           allowTelemetryCollection: false
