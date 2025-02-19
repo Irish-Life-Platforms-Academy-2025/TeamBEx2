@@ -1,0 +1,21 @@
+jobs:
+  - job: prep_terraform
+    displayName: "Setup terraform"
+    
+    steps:
+      - task: TerraformInstaller@2
+        inputs:
+          terraformVersion: 'latest'
+      
+      - task: TerraformCLI@2
+        inputs:
+          command: 'init'
+          backendType: 'azurerm'
+          allowTelemetryCollection: false
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+      - task: TerraformCLI@2
+        inputs:
+          command: 'validate'
+          allowTelemetryCollection: false
+
