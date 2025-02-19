@@ -21,7 +21,6 @@ stages:
 
     jobs:
       - template: setup.yml
-        continueOnError: false
 
   - stage: plan_terraform
     displayName: 'Plan Terraform'
@@ -31,4 +30,3 @@ stages:
 
     jobs:
       - template: plan.yml
-        continueOnError: false
