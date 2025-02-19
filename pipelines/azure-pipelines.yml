@@ -7,7 +7,7 @@ trigger:
 - main
 
 variables:
-  ServiceConnectionName: ''
+  ServiceConnectionName: 'TeamBDevopsSC'
 
 pool:
   vmImage: ubuntu-latest

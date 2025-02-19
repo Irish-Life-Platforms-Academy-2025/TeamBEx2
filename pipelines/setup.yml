@@ -13,6 +13,7 @@ jobs:
           backendType: 'azurerm'
           allowTelemetryCollection: false
           workingDirectory: '$(System.DefaultWorkingDirectory)'
+          backendServiceArm: $(ServiceConnectionName)
 
       - task: TerraformCLI@2
         inputs:

@@ -9,4 +9,5 @@ jobs:
           allowTelemetryCollection: false
           workingDirectory: '$(System.DefaultWorkingDirectory)'
           secureVarsFile: 'notpasswords.tfvars'
+          backendServiceArm: $(ServiceConnectionName)
 
