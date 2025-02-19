@@ -11,5 +11,7 @@ pool:
 
 stages:
   - stage: setup_terraform
-    template: Pipelines/setup.yml
-    
+    displayName: 'Setup Environment'
+
+    jobs:
+      - template: pipelines/setup.yml
