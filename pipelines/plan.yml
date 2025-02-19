@@ -1,0 +1,12 @@
+jobs:
+  - job: plan_terraform
+    displayName: "Run Plan"
+    
+    steps:
+      - task: TerraformCLI@2
+        inputs:
+          command: 'plan'
+          allowTelemetryCollection: false
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+          secureVarsFile: 'notpasswords.tfvars'
+

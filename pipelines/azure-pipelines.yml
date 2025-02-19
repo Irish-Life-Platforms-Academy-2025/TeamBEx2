@@ -6,6 +6,9 @@
 trigger:
 - main
 
+variables:
+  ServiceConnectionName: ''
+
 pool:
   vmImage: ubuntu-latest
 
@@ -15,3 +18,13 @@ stages:
 
     jobs:
       - template: setup.yml
+
+  - stage: plan_terraform
+    displayName: 'Plan Terraform'
+    
+    dependsOn:
+      - setup_terraform
+    condition: succeeded('setup_terraform')
+
+    jobs:
+      - template: plan.yml

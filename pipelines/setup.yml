@@ -12,10 +12,11 @@ jobs:
           command: 'init'
           backendType: 'azurerm'
           allowTelemetryCollection: false
-          workingDirectory: '$(Build.SourcesDirectory)/..'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
       - task: TerraformCLI@2
         inputs:
           command: 'validate'
           allowTelemetryCollection: false
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
