@@ -6,14 +6,35 @@
 trigger:
 - main
 
+variables: # terraform variables
+ ServiceConnectionName: 'anynameofsp'
+ bk-rg-name: 'rg-name'
+ bk-str-account-name: 'strname'
+ bk-container-name: 'containername'
+ bk-key: 'terraform.tfstate' # key is actually name of the file, determined here
+ 
 pool:
   vmImage: ubuntu-latest
+  
+stages:
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - stage: validate_terraform
+    displayName: 'Validate Terraform'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    jobs:
+    - template: Terraform/plan.yml
+      parameters:
+        env: dev
+
+  - stage: deploy_terraform
+    displayName: 'Deploy Terraform'
+    dependsOn:
+    - validate_terraform # makes sure validate_terraform stage runs first
+    condition: succeeded('validate_terraform') ## stage runs only if validate_terraform is successful
+
+    jobs:
+    - template: Terraform/deploy.yml
+      parameters:
+        env: dev
+    
+
