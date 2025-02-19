@@ -9,11 +9,12 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, a world!
-  displayName: 'Run a one-line script'
+jobs:
+  - job: prep_terraform
+    displayName: "Setup terraform"
+    
+    steps:
+      - task: TerraformInstaller@2
+        inputs:
+          terraformVersion: 'latest'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
