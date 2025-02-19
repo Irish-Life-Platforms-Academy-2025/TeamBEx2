@@ -33,6 +33,6 @@ jobs:
       - task: DownloadSecureFile@1
         name: tfpasswords
         inputs:
-          secureFile: 'notpassword.tfvars'
+          secureFile: 'notpasswords.tfvars'
         continueOnError: false
 
