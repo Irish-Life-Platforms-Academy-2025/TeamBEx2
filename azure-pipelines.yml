@@ -8,10 +8,10 @@ trigger:
 
 variables: # terraform variables
  ServiceConnectionName: 'anynameofsp'
- bk-rg-name: 'rg-name'
- bk-str-account-name: 'strname'
- bk-container-name: 'containername'
- bk-key: 'terraform.tfstate' # key is actually name of the file, determined here
+ bk-rg-name: 'teamb-stage-rg'
+ bk-str-account-name: 'teambterraformsa'
+ bk-container-name: 'states'
+ bk-key: 'teambex2.tfstate' # key is actually name of the file, determined here
  
 pool:
   vmImage: ubuntu-latest
