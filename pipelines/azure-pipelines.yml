@@ -14,4 +14,4 @@ stages:
     displayName: 'Setup Environment'
 
     jobs:
-      - template: pipelines/setup.yml
+      - template: setup.yml
