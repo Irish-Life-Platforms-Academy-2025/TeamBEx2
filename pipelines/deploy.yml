@@ -1,6 +1,15 @@
 jobs:
+  - job: approval
+    pool: server
+    steps:
+      - task: ManualValidation@1
+        inputs:
+          notifyUsers: 'eoin.healy@canadalifegroup.com'
+          allowApproversToApproveTheirOwnRuns: true
+
   - job: deploy_terraform
     displayName: "Deploy terraform code"
+    dependsOn: approval
     steps:
       - task: DownloadSecureFile@1
         displayName: 'Download passwords file'
