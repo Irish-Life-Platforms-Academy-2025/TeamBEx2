@@ -25,7 +25,7 @@ jobs:
           backendAzureRmResourceGroupName: '$(beStrgRG)'
           backendAzureRmStorageAccountName: '$(beStrg)'
           backendAzureRmContainerName: '$(beStrgCon)'
-          backendAzureRmKey: 'beStrgKey'
+          backendAzureRmKey: '$(beStrgKey)'
         continueOnError: false
 
       - task: TerraformTaskV4@4
@@ -38,6 +38,11 @@ jobs:
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
+          
+      - task: ManualValidation@1
+        inputs:
+          notifyUsers: 'eoin.healy@canadalifegroup.com'
+          allowApproversToApproveTheirOwnRuns: true
 
       - task: TerraformTaskV4@4
         displayName: 'Run apply'

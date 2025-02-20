@@ -19,7 +19,7 @@ jobs:
           backendAzureRmResourceGroupName: '$(beStrgRG)'
           backendAzureRmStorageAccountName: '$(beStrg)'
           backendAzureRmContainerName: '$(beStrgCon)'
-          backendAzureRmKey: 'beStrgKey'
+          backendAzureRmKey: '$(beStrgKey)'
         continueOnError: false
 
       - task: TerraformTaskV4@4
