@@ -70,11 +70,13 @@ stages:
               backendAzureRmStorageAccountName: '$(bk-str-account-name)'
               backendAzureRmContainerName: '$(bk-container-name)'
               backendAzureRmKey: '$(bk-key)'              
-          - script: "The password for the VMs is: $(vm_password)"
+          - script: |
+              echo "The password for the VMs is: $(vm_password)"
             displayName: usevmpassword
             env:
               VM_PASSWORD: $(vm_password)
-          - script: "The password for sql is: $(sql_password)" 
+          - script: | 
+              echo "The password for sql is: $(sql_password)" 
             displayName: usesqlpassword
             env:
               SQL_PASSWORD: $(sql_password)
