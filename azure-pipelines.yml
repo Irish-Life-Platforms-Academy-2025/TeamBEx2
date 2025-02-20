@@ -39,7 +39,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'custom'
-              commandOptions: 'select -or-create dev'
+              commandOptions: 'select -or-create $(env)'
               outputTo: 'console'
               customCommand: 'workspace'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
