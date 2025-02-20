@@ -11,6 +11,7 @@ jobs:
           commandOptions: 'select $(env)'
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
 
       - task: TerraformTaskV4@4
         displayName: 'Plan'
