@@ -31,8 +31,21 @@ jobs:
         continueOnError: false
 
       - task: DownloadSecureFile@1
+        displayName: 'Download passwords file'
         name: tfpasswords
         inputs:
           secureFile: 'notpasswords.tfvars'
         continueOnError: false
+
+      - task: TerraformTaskV4@4
+        displayName: 'Create Workspace'
+        inputs:
+          provider: 'azurerm'
+          command: 'custom'
+          customCommand: 'workspace'
+          commandOptions: 'new $(env)'
+          outputTo: 'console'
+          environmentServiceNameAzureRM: '$(ServiceConnectionName)'
+        
+
 

@@ -11,6 +11,7 @@ variables:
   beStrg: 'teambterraformsa'
   beStrgCon: 'states'
   beStrgKey: 'teambex2.tfstate'
+  env: 'Prod'
 
 pool:
   vmImage: ubuntu-latest

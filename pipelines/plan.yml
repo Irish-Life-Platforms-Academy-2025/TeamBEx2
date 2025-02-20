@@ -1,8 +1,17 @@
 jobs:
   - job: plan_terraform
     displayName: "Run Plan"
-    
     steps:
+      - task: TerraformTaskV4@4
+        displayName: 'Select Workspace'
+        inputs:
+          provider: 'azurerm'
+          command: 'custom'
+          customCommand: 'workspace'
+          commandOptions: 'select $(env)'
+          outputTo: 'console'
+          environmentServiceNameAzureRM: '$(ServiceConnectionName)'
+
       - task: TerraformTaskV4@4
         inputs:
           command: 'plan'
