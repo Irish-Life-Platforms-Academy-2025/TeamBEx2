@@ -2,6 +2,11 @@ jobs:
   - job: deply_terraform
     displayName: "Deploy terraform code"
     steps:
+      - task: TerraformInstaller@1
+        displayName: 'Install Terraform'
+        inputs:
+          terraformVersion: 'latest'
+        continueOnError: false
       - task: TerraformTaskV4@4
         displayName: 'Run Init'
         inputs:
