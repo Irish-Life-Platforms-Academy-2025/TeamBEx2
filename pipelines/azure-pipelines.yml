@@ -40,3 +40,18 @@ stages:
 
     jobs:
       - template: deploy.yml
+
+  - stage: deploy_terraform_stage
+    displayName: 'Deploy Terraform'
+    dependsOn:
+      - plan_terraform_stage
+    condition: succeeded('plan_terraform_stage')
+
+    jobs:
+      - template: deploy.yml
+
+  - stage: destroy_terraform_stage
+    displayName: 'Destroy Terraform'
+
+    jobs:
+      - template: destroy.yml

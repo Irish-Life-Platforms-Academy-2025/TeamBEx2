@@ -1,6 +1,6 @@
 jobs:
-  - job: deploy_terraform
-    displayName: "Deploy terraform code"
+  - job: destroy_terraform
+    displayName: "destroy terraform resources"
     steps:
       - task: DownloadSecureFile@1
         displayName: 'Download passwords file'
@@ -40,9 +40,9 @@ jobs:
           workingDirectory: '$(System.DefaultWorkingDirectory)'
 
       - task: TerraformTaskV4@4
-        displayName: 'Run apply'
+        displayName: 'Run destroy'
         inputs:
-          command: 'apply'
+          command: 'destroy'
           commandOptions: '-var-file=$(tfpasswords.secureFilePath)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
           environmentServiceNameAzureRM: $(ServiceConnectionName)
