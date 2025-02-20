@@ -13,9 +13,10 @@ jobs:
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
 
       - task: TerraformTaskV4@4
+        displayName: 'Plan'
         inputs:
           command: 'plan'
-          commandOptions: '-var-file $(tfpasswords.secureFilePath)'
+          commandOptions: '-var-file=$(tfpasswords.secureFilePath)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
           environmentServiceNameAzureRM: $(ServiceConnectionName)
         continueOnError: false

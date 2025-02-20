@@ -46,6 +46,7 @@ jobs:
           commandOptions: 'new $(env)'
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
+        continueOnError: true # Workspace already exists causes error
         
 
 
