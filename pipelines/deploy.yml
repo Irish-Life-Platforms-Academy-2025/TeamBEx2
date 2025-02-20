@@ -2,11 +2,19 @@ jobs:
   - job: deply_terraform
     displayName: "Deploy terraform code"
     steps:
+      - task: DownloadSecureFile@1
+        displayName: 'Download passwords file'
+        name: tfpasswords
+        inputs:
+          secureFile: 'notpasswords.tfvars'
+        continueOnError: false
+        
       - task: TerraformInstaller@1
         displayName: 'Install Terraform'
         inputs:
           terraformVersion: 'latest'
         continueOnError: false
+
       - task: TerraformTaskV4@4
         displayName: 'Run Init'
         inputs:
@@ -19,6 +27,7 @@ jobs:
           backendAzureRmContainerName: '$(beStrgCon)'
           backendAzureRmKey: 'beStrgKey'
         continueOnError: false
+
       - task: TerraformTaskV4@4
         displayName: 'Select Workspace'
         inputs:

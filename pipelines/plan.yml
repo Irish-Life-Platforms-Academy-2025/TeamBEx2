@@ -2,6 +2,13 @@ jobs:
   - job: plan_terraform
     displayName: "Run Plan"
     steps:
+      - task: DownloadSecureFile@1
+        displayName: 'Download passwords file'
+        name: tfpasswords
+        inputs:
+          secureFile: 'notpasswords.tfvars'
+        continueOnError: false
+        
       - task: TerraformInstaller@1
         displayName: 'Install Terraform'
         inputs:
