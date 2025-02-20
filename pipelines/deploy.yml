@@ -1,5 +1,5 @@
 jobs:
-  - job: plan_terraform
+  - job: deply_terraform
     displayName: "Deploy terraform code"
     steps:
       - task: TerraformTaskV4@4

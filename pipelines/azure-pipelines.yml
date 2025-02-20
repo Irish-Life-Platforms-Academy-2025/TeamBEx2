@@ -16,17 +16,26 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: setup_terraform
+  - stage: setup_terraform_stage
     displayName: 'Setup Environment'
 
     jobs:
       - template: setup.yml
 
-  - stage: plan_terraform
+  - stage: plan_terraform_stage
     displayName: 'Plan Terraform'
     dependsOn:
-      - setup_terraform
-    condition: succeeded('setup_terraform')
+      - setup_terraform_stage
+    condition: succeeded('setup_terraform_stage')
 
     jobs:
       - template: plan.yml
+
+  - stage: deploy_terraform_stage
+    displayName: 'Deploy Terraform'
+    dependsOn:
+      - plan_terraform_stage
+    condition: succeeded('plan_terraform_stage')
+
+    jobs:
+      - template: deploy.yml
