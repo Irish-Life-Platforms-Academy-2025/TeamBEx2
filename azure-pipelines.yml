@@ -8,13 +8,9 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  
-variables: # terraform variables
- ServiceConnectionName: 'TeamBDevopsSC'
- bk-rg-name: 'teamb-stage-rg'
- bk-str-account-name: 'teambterraformsa'
- bk-container-name: 'states'
- bk-key: 'teambex2.tfstate' # key is actually name of the file, determined here
+
+variables:
+- group: CWVariableGroup
 
 stages:
   - stage: tfvalidate
@@ -50,6 +46,16 @@ stages:
     jobs:
       - job: apply
         steps:
+          - script: "The password for the VMs is: $(vm_password)"
+            displayName: usevmpassword
+            env:
+                vm_password: (vm_password)
+
+          - script: "The password for sql is: $(sql_password)" 
+            displayName: usesqlpassword
+            env:
+                sql_password: $(sql_password)
+
           - task: TerraformInstaller@1
             displayName: tfinstall
             inputs:
@@ -70,6 +76,7 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
+              
           - task: TerraformTaskV4@4
             displayName: apply
             inputs:
