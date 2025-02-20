@@ -59,7 +59,7 @@ stages:
           - script: "The password for the VMs is: $(vm_password)"
             displayName: usevmpassword
             env:
-                vm_password: (vm_password)
+                vm_password: $(vm_password)
 
           - script: "The password for sql is: $(sql_password)" 
             displayName: usesqlpassword
