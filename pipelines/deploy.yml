@@ -1,4 +1,12 @@
 jobs:
+  - job: 'intervention'
+    displayName: 'Wait for approval'
+    steps:
+      - task: ManualValidation@1
+        inputs:
+          notifyUsers: 'eoin.healy@canadalifegroup.com'
+          allowApproversToApproveTheirOwnRuns: true
+
   - job: deply_terraform
     displayName: "Deploy terraform code"
     steps:
