@@ -8,7 +8,7 @@ jobs:
         inputs:
           secureFile: 'notpasswords.tfvars'
         continueOnError: false
-        
+
       - task: TerraformInstaller@1
         displayName: 'Install Terraform'
         inputs:
@@ -34,7 +34,7 @@ jobs:
           provider: 'azurerm'
           command: 'custom'
           customCommand: 'workspace'
-          commandOptions: 'select $(env)'
+          commandOptions: 'select -or-create $(env)'
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'

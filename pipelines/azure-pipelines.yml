@@ -13,6 +13,7 @@ variables:
   beStrgKey: 'teambex2.tfstate'
 
 pool:
+  name: cshaigh-managed-devops-pool
   vmImage: ubuntu-latest
 
 stages:

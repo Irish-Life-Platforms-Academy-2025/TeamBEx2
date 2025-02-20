@@ -36,18 +36,6 @@ jobs:
         inputs:
           secureFile: 'notpasswords.tfvars'
         continueOnError: false
-
-      - task: TerraformTaskV4@4
-        displayName: 'Create Workspace'
-        inputs:
-          provider: 'azurerm'
-          command: 'custom'
-          customCommand: 'workspace'
-          commandOptions: 'new $(env)'
-          outputTo: 'console'
-          environmentServiceNameAzureRM: '$(ServiceConnectionName)'
-          workingDirectory: '$(System.DefaultWorkingDirectory)'
-        continueOnError: true # Workspace already exists causes error
         
 
 
