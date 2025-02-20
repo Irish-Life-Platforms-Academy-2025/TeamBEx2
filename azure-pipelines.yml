@@ -46,5 +46,18 @@ stages:
     dependsOn: tfvalidate
     jobs:
       - job: apply
-
-          
+        steps:
+          - task: TerraformInstaller@1
+            displayName: tfinstall
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'TeamBDevopsSC'
+              backendAzureRmResourceGroupName: '$(bk-rg-name)'
+              backendAzureRmStorageAccountName: '$(bk-str-account-name)'
+              backendAzureRmContainerName: '$(bk-container-name)'
+              backendAzureRmKey: '$(bk-key)'
