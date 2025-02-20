@@ -38,11 +38,6 @@ jobs:
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          
-      - task: ManualValidation@1
-        inputs:
-          notifyUsers: 'eoin.healy@canadalifegroup.com'
-          allowApproversToApproveTheirOwnRuns: true
 
       - task: TerraformTaskV4@4
         displayName: 'Run apply'
