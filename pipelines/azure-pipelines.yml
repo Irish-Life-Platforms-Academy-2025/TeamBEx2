@@ -44,6 +44,8 @@ stages:
 
   - stage: destroy_terraform_stage
     displayName: 'Destroy Terraform'
-
+    dependsOn:
+      - plan_terraform_stage
+    condition: succeeded('plan_terraform_stage')
     jobs:
       - template: destroy.yml
