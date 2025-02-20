@@ -56,16 +56,6 @@ stages:
     jobs:
       - job: apply
         steps:
-          - script: "The password for the VMs is: $(vm_password)"
-            displayName: usevmpassword
-            env:
-                vm_password: $(vm_password)
-
-          - script: "The password for sql is: $(sql_password)" 
-            displayName: usesqlpassword
-            env:
-                sql_password: $(sql_password)
-
           - task: TerraformInstaller@1
             displayName: tfinstall
             inputs:
@@ -79,7 +69,15 @@ stages:
               backendAzureRmResourceGroupName: '$(bk-rg-name)'
               backendAzureRmStorageAccountName: '$(bk-str-account-name)'
               backendAzureRmContainerName: '$(bk-container-name)'
-              backendAzureRmKey: '$(bk-key)'
+              backendAzureRmKey: '$(bk-key)'              
+          - script: "The password for the VMs is: $(vm_password)"
+            displayName: usevmpassword
+            env:
+                vm_password: $(vm_password)
+          - script: "The password for sql is: $(sql_password)" 
+            displayName: usesqlpassword
+            env:
+                sql_password: $(sql_password)
           - task: TerraformTaskV4@4
             inputs:
               provider: 'azurerm'
