@@ -37,7 +37,14 @@ stages:
               backendAzureRmContainerName: '$(bk-container-name)'
               backendAzureRmKey: '$(bk-key)'
           - task: TerraformTaskV4@4
+            displayName: validate
             inputs:
               provider: 'azurerm'
               command: 'validate'
+  - stage: tfdeploy
+    condition: succeeded('tfvalidate')
+    dependsOn: tfvalidate
+    jobs:
+      - job: apply
+
           
