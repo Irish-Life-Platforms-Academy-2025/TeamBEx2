@@ -7,7 +7,7 @@
 trigger: none
 
 parameters:
-  - name: Type
+  - name: JobType
     type: string
     default: 'Apply'
     values:
@@ -51,7 +51,7 @@ stages:
     displayName: 'Deploy Terraform'
     dependsOn:
       - plan_terraform_stage
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.Type, 'Apply'))
+    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Apply'))
 
     jobs:
       - template: deploy.yml
@@ -60,7 +60,7 @@ stages:
     displayName: 'Destroy Terraform'
     dependsOn:
       - plan_terraform_stage
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.Type, 'Destroy'))
+    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Destroy'))
 
     jobs:
       - template: destroy.yml
