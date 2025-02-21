@@ -6,6 +6,15 @@
 
 trigger: none
 
+parameters:
+  - name: Type
+    type: string
+    default: 'Apply'
+    values:
+      - Apply
+      - Destroy
+
+
 variables:
   ServiceConnectionName: 'TeamBDevopsSC'
   beStrgRG: 'TeamB-stage-rg'
@@ -39,7 +48,7 @@ stages:
     displayName: 'Deploy Terraform'
     dependsOn:
       - plan_terraform_stage
-    condition: succeeded('plan_terraform_stage')
+    condition: succeeded('plan_terraform_stage') && eq(parameters.Type, 'Apply')
 
     jobs:
       - template: deploy.yml
@@ -48,7 +57,7 @@ stages:
     displayName: 'Destroy Terraform'
     dependsOn:
       - plan_terraform_stage
-    condition: succeeded('plan_terraform_stage')
-    
+    condition: succeeded('plan_terraform_stage') && eq(parameters.Type, 'Destroy')
+
     jobs:
       - template: destroy.yml

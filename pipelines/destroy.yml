@@ -1,4 +1,12 @@
 jobs:
+  - job: approval
+    pool: server
+    steps:
+      - task: ManualValidation@1
+        inputs:
+          notifyUsers: 'eoin.healy@canadalifegroup.com'
+          allowApproversToApproveTheirOwnRuns: true
+          
   - job: destroy_terraform
     displayName: "destroy terraform resources"
     steps:
