@@ -49,18 +49,18 @@ stages:
 
   - stage: deploy_terraform_stage
     displayName: 'Deploy Terraform'
+    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Apply'))
     dependsOn:
       - plan_terraform_stage
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Apply'))
 
     jobs:
       - template: deploy.yml
 
   - stage: destroy_terraform_stage
     displayName: 'Destroy Terraform'
+    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Destroy'))
     dependsOn:
       - plan_terraform_stage
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Destroy'))
 
     jobs:
       - template: destroy.yml
