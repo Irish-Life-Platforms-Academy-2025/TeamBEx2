@@ -27,6 +27,13 @@ jobs:
           backendAzureRmContainerName: '$(beStrgCon)'
           backendAzureRmKey: '$(beStrgKey)'
         continueOnError: false
+      
+      - task: TerraformTaskV4@4
+        displayName: 'Validate'
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+        continueOnError: false
 
       - task: TerraformTaskV4@4
         displayName: 'Select Workspace'
