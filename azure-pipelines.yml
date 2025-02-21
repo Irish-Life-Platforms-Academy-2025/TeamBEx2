@@ -88,6 +88,13 @@ stages:
               outputTo: 'console'
               customCommand: 'workspace'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'TeamBDevopsSC'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                 az account show 
                 
           - script: |
               terraform plan -var "vm_password=$(vm_password)" -var "sql_password=$(sql_password)"
