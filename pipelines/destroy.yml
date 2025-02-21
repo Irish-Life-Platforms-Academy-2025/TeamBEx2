@@ -42,7 +42,7 @@ jobs:
           provider: 'azurerm'
           command: 'custom'
           customCommand: 'workspace'
-          commandOptions: 'select -or-create ${{ parameters.env }}'
+          commandOptions: 'select -or-create $(env)'
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
