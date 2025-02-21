@@ -20,12 +20,14 @@ pool:
 stages:
   - stage: setup_terraform_stage
     displayName: 'Setup Environment'
+    isSkippable: false
 
     jobs:
       - template: setup.yml
 
   - stage: plan_terraform_stage
     displayName: 'Plan Terraform'
+    isSkippable: false
     dependsOn:
       - setup_terraform_stage
     condition: succeeded('setup_terraform_stage')
@@ -47,5 +49,6 @@ stages:
     dependsOn:
       - plan_terraform_stage
     condition: succeeded('plan_terraform_stage')
+    
     jobs:
       - template: destroy.yml

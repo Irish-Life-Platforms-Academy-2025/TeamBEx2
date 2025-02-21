@@ -36,6 +36,8 @@ jobs:
         inputs:
           secureFile: 'notpasswords.tfvars'
         continueOnError: false
+
+      - task: Terr
         
 
 
