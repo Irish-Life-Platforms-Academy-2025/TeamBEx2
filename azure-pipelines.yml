@@ -74,12 +74,12 @@ stages:
               echo "The password for the VMs is: $(vm_password)"
             displayName: usevmpassword
             env:
-              var.vm.password: $(vm_password)
+              vm.password: $(vm_password)
           - script: | 
               echo "The password for sql is: $(sql_password)" 
             displayName: usesqlpassword
             env:
-              var.sql.password: $(sql_password)
+              sql.password: $(sql_password)
           - task: TerraformTaskV4@4
             inputs:
               provider: 'azurerm'
