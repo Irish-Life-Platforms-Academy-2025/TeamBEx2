@@ -8,13 +8,9 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  
-variables: # terraform variables
- ServiceConnectionName: 'TeamBDevopsSC'
- bk-rg-name: 'teamb-stage-rg'
- bk-str-account-name: 'teambterraformsa'
- bk-container-name: 'states'
- bk-key: 'teambex2.tfstate' # key is actually name of the file, determined here
+
+variables:
+- group: CWVariableGroup
 
 stages:
   - stage: tfvalidate
@@ -26,6 +22,8 @@ stages:
             displayName: tfinstall
             inputs:
               terraformVersion: 'latest'
+            continueOnError: false
+
           - task: TerraformTaskV4@4
             displayName: init
             inputs:
@@ -36,6 +34,17 @@ stages:
               backendAzureRmStorageAccountName: '$(bk-str-account-name)'
               backendAzureRmContainerName: '$(bk-container-name)'
               backendAzureRmKey: '$(bk-key)'
+            continueOnError: false
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              commandOptions: 'select -or-create $(env)'
+              outputTo: 'console'
+              customCommand: 'workspace'
+              environmentServiceNameAzureRM: 'TeamBDevopsSC'            
+          - script: echo "The value of Workspace is $(env)"
+            displayName: 'Workspace'
           - task: TerraformTaskV4@4
             displayName: validate
             inputs:
@@ -60,13 +69,32 @@ stages:
               backendAzureRmResourceGroupName: '$(bk-rg-name)'
               backendAzureRmStorageAccountName: '$(bk-str-account-name)'
               backendAzureRmContainerName: '$(bk-container-name)'
-              backendAzureRmKey: '$(bk-key)'
+              backendAzureRmKey: '$(bk-key)'              
+          - script: |
+              echo "The password for the VMs is: $(vm_password)"
+            displayName: usevmpassword
+            env:
+              vm.password: $(vm_password)
+          - script: | 
+              echo "The password for sql is: $(sql_password)" 
+            displayName: usesqlpassword
+            env:
+              sql.password: $(sql_password)
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'custom'
+              commandOptions: 'select -or-create dev'
+              outputTo: 'console'
+              customCommand: 'workspace'
+              environmentServiceNameAzureRM: 'TeamBDevopsSC'
           - task: TerraformTaskV4@4
             displayName: plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
+              
           - task: TerraformTaskV4@4
             displayName: apply
             inputs:
