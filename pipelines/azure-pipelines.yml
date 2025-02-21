@@ -24,7 +24,11 @@ variables:
   beStrg: 'teambterraformsa'
   beStrgCon: 'states'
   beStrgKey: 'teambex2.tfstate'
-  env: ${{ parameters.env }} 
+  env: ${{ parameters.env }}
+  ${{ if eq(parameters.JobType, 'Destroy') }}:
+    destroySwitch: '-destroy'
+  ${{ else }}:
+    destroySwitch: ''
 
 pool:
   name: cshaigh-managed-devops-pool

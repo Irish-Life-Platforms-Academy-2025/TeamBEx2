@@ -42,7 +42,7 @@ jobs:
         displayName: 'Plan'
         inputs:
           command: 'plan'
-          commandOptions: '-var-file=$(tfpasswords.secureFilePath)'
+          commandOptions: '-var-file=$(tfpasswords.secureFilePath) $(destroySwitch)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
           environmentServiceNameAzureRM: $(ServiceConnectionName)
         continueOnError: false
