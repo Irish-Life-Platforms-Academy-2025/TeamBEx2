@@ -81,6 +81,7 @@ stages:
             env:
               sql.password: $(sql_password)
           - task: TerraformTaskV4@4
+            displayName: Workspace
             inputs:
               provider: 'azurerm'
               command: 'custom'
@@ -88,26 +89,18 @@ stages:
               outputTo: 'console'
               customCommand: 'workspace'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
-          - task: AzureCLI@2
+          - task: TerraformTaskV4@4
+            displayName: Plan
             inputs:
-              azureSubscription: 'TeamBDevopsSC'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                 az account show 
-                
-          - script: |
-              terraform plan -var "vm_password=$(vm_password)" -var "sql_password=$(sql_password)"
-            env:
-              vm_password: $(vm_password)
-              sql_password: $(sql_password)
-            workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-          - script: |
-             terraform apply -auto-approve -var "vm_password=$(vm_password)" -var "sql_password=$(sql_password)"
-            env:
-              vm_password: $(vm_password)
-              sql_password: $(sql_password)
-            workingDirectory: '$(System.DefaultWorkingDirectory)' 
-                    
+              provider: 'azurerm'
+              command: 'plan'
+              commandOptions: '-var  "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
+              environmentServiceNameAzureRM: 'TeamBDevopsSC'                         
+          - task: TerraformTaskV4@4
+            displayName: Apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              commandOptions: '-var "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
+              environmentServiceNameAzureRM: 'TeamBDevopsSC'
           
