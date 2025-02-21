@@ -6,7 +6,7 @@ jobs:
         inputs:
           notifyUsers: 'eoin.healy@canadalifegroup.com'
           allowApproversToApproveTheirOwnRuns: true
-          
+
   - job: destroy_terraform
     displayName: "destroy terraform resources"
     steps:
@@ -42,7 +42,7 @@ jobs:
           provider: 'azurerm'
           command: 'custom'
           customCommand: 'workspace'
-          commandOptions: 'select -or-create $(env)'
+          commandOptions: 'select -or-create $(parameters.env)'
           outputTo: 'console'
           environmentServiceNameAzureRM: '$(ServiceConnectionName)'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
