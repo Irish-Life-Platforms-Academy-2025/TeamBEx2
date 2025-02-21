@@ -49,7 +49,7 @@ stages:
 
   - stage: deploy_terraform_stage
     displayName: 'Deploy Terraform'
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Apply'))
+    condition: and(succeeded('plan_terraform_stage'), ${{ eq(parameters.JobType, 'Apply') }})
     dependsOn:
       - plan_terraform_stage
 
@@ -58,7 +58,7 @@ stages:
 
   - stage: destroy_terraform_stage
     displayName: 'Destroy Terraform'
-    condition: and(succeeded('plan_terraform_stage'), eq(parameters.JobType, 'Destroy'))
+    condition: and(succeeded('plan_terraform_stage'), ${{ eq(parameters.JobType, 'Destroy') }})
     dependsOn:
       - plan_terraform_stage
 
