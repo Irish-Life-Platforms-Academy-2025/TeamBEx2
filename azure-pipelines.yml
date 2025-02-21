@@ -84,13 +84,13 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              commandOptions: '-var  "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
+              commandOptions: '-var="vm_password=$(vm_password)" -var="sql_password=$(sql_password)"'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'                         
           - task: TerraformTaskV4@4
             displayName: Apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              commandOptions: '-var "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
+              commandOptions: '-var="vm_password=$(vm_password)" -var="sql_password=$(sql_password)"'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
           
