@@ -1,0 +1,71 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# Test edit for pull s
+# https://aka.ms/yaml
+
+trigger: none
+
+parameters:
+  - name: JobType
+    type: string
+    default: 'Apply'
+    values:
+      - Apply
+      - Destroy
+
+  - name: env
+    type: string
+    default: 'prod'
+
+variables:
+  ServiceConnectionName: 'TeamBDevopsSC'
+  beStrgRG: 'TeamB-stage-rg'
+  beStrg: 'teambterraformsa'
+  beStrgCon: 'states'
+  beStrgKey: 'teambex2.tfstate'
+  env: ${{ parameters.env }}
+  ${{ if eq(parameters.JobType, 'Destroy') }}:
+    destroySwitch: '-destroy'
+  ${{ else }}:
+    destroySwitch: ''
+
+pool:
+  name: cshaigh-managed-devops-pool
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: setup_terraform_stage
+    displayName: 'Setup Environment'
+    isSkippable: false
+
+    jobs:
+      - template: setup.yml
+
+  - stage: plan_terraform_stage
+    displayName: 'Plan Terraform'
+    isSkippable: false
+    dependsOn:
+      - setup_terraform_stage
+    condition: succeeded('setup_terraform_stage')
+
+    jobs:
+      - template: plan.yml
+
+  - stage: deploy_terraform_stage
+    displayName: 'Deploy Terraform'
+    condition: and(succeeded('plan_terraform_stage'), ${{ eq(parameters.JobType, 'Apply') }})
+    dependsOn:
+      - plan_terraform_stage
+
+    jobs:
+      - template: deploy.yml
+
+  - stage: destroy_terraform_stage
+    displayName: 'Destroy Terraform'
+    condition: and(succeeded('plan_terraform_stage'), ${{ eq(parameters.JobType, 'Destroy') }})
+    dependsOn:
+      - plan_terraform_stage
+
+    jobs:
+      - template: destroy.yml
