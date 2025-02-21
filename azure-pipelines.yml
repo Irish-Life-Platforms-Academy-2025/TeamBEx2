@@ -89,15 +89,17 @@ stages:
               customCommand: 'workspace'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
           - task: TerraformTaskV4@4
-            displayName: plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              environmentServiceNameAzureRM: 'TeamBDevopsSC'
-              
+              commandOptions: '-var  "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
+              environmentServiceNameAzureRM: 'TeamBDevopsSC'                         
           - task: TerraformTaskV4@4
-            displayName: apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
+              commandOptions: '-var "vm_password=TeamBPassword1234!" -var "sql_password=TeamBSQLPassword1234!"'
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
+              
+                    
+          
