@@ -70,16 +70,6 @@ stages:
               backendAzureRmStorageAccountName: '$(bk-str-account-name)'
               backendAzureRmContainerName: '$(bk-container-name)'
               backendAzureRmKey: '$(bk-key)'              
-          - script: |
-              echo "The password for the VMs is: $(vm_password)"
-            displayName: usevmpassword
-            env:
-              vm.password: $(vm_password)
-          - script: | 
-              echo "The password for sql is: $(sql_password)" 
-            displayName: usesqlpassword
-            env:
-              sql.password: $(sql_password)
           - task: TerraformTaskV4@4
             displayName: Workspace
             inputs:
