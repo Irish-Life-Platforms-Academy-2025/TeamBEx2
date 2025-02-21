@@ -90,14 +90,14 @@ stages:
               environmentServiceNameAzureRM: 'TeamBDevopsSC'
                 
           - script: |
-              terraform plan -var vm_password=$(vm_password)" -var "sql_password=$(sql_password)
+              terraform plan -var "vm_password=$(vm_password)" -var "sql_password=$(sql_password)"
             env:
               vm_password: $(vm_password)
               sql_password: $(sql_password)
             workingDirectory: '$(System.DefaultWorkingDirectory)'
 
           - script: |
-             terraform apply -auto-approve -var vm_password=$(vm_password)" -var "sql_password=$(sql_password)
+             terraform apply -auto-approve -var "vm_password=$(vm_password)" -var "sql_password=$(sql_password)"
             env:
               vm_password: $(vm_password)
               sql_password: $(sql_password)
